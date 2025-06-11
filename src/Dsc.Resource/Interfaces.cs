@@ -11,37 +11,37 @@ public interface IDscResource<T>
     T Parse(string json);
 }
 
-public interface IGet<T> : IDscResource<T>
+public interface IGettable<T> : IDscResource<T>
 {
     T Get(T input);
 }
 
-public interface ISet<T> : IDscResource<T>
+public interface ISettable<T> : IDscResource<T>
 {
     void Set(T input);
 }
 
-public interface ISetWhatIf<T> : ISet<T>
+public interface ISettableWhatIf<T> : ISettable<T>
 {
     void Set(T input, bool whatIf);
 }
 
-public interface IDelete<T> : IDscResource<T>
+public interface IDeletable<T> : IDscResource<T>
 {
     void Delete(T input);
 }
 
-public interface IDeleteWhatIf<T> : IDelete<T>
+public interface IDeletableWhatIf<T> : IDeletable<T>
 {
     void Delete(T input, bool whatIf);
 }
 
-public interface ITest<T> : IDscResource<T>
+public interface ITestable<T> : IDscResource<T>
 {
     bool Test(T input);
 }
 
-public interface IExport<T> : IDscResource<T>
+public interface IExportable<T> : IDscResource<T>
 {
     IEnumerable<T> Export();
 }
