@@ -11,7 +11,7 @@ namespace Dsc.Resource;
 
 public abstract class DscResource<T> : IDscResource<T>
 {
-    public JsonSerializerOptions JsonSerializerOptions
+    protected JsonSerializerOptions JsonSerializerOptions
     {
         get
         {
@@ -36,7 +36,7 @@ public abstract class DscResource<T> : IDscResource<T>
         }
     }
 
-    public JsonSchemaExporterOptions JsonSchemaExporterOptions
+    protected JsonSchemaExporterOptions JsonSchemaExporterOptions
     {
         get
         {
