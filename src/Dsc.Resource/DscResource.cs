@@ -17,13 +17,15 @@ public abstract class DscResource<T> : IDscResource<T>
         {
             _jsonSerializerOptions ??= new JsonSerializerOptions()
             {
-                WriteIndented = true,
+                // DSC requires JSON lines for most output
+                WriteIndented = false,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
                 TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
                 Converters =
                 {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+                    new TestResultConverter<T>()
                 }
             };
 
@@ -57,16 +59,24 @@ public abstract class DscResource<T> : IDscResource<T>
     private JsonSerializerOptions? _jsonSerializerOptions;
     private JsonSchemaExporterOptions? _jsonSchemaExporterOptions;
 
-    public virtual string GetSchema(Type type)
+    public virtual string GetSchema()
     {
-        return JsonSerializerOptions.GetJsonSchemaAsNode(type, JsonSchemaExporterOptions).ToString();
+        return JsonSerializerOptions.GetJsonSchemaAsNode(typeof(T), JsonSchemaExporterOptions).ToString();
     }
 
+#if NET6_0_OR_GREATER
+    [RequiresDynamicCode("Uses JSON serialization that may require runtime code generation.")]
+    [RequiresUnreferencedCode("Uses JSON serialization that may be unsafe for trimming.")]
+#endif
     public virtual string ToJson(T input)
     {
         return JsonSerializer.Serialize(input, JsonSerializerOptions);
     }
 
+#if NET6_0_OR_GREATER
+    [RequiresDynamicCode("Uses JSON serialization that may require runtime code generation.")]
+    [RequiresUnreferencedCode("Uses JSON serialization that may be unsafe for trimming.")]
+#endif
     public virtual T Parse(string json)
     {
         return JsonSerializer.Deserialize<T>(json, JsonSerializerOptions) ?? throw new InvalidOperationException();
