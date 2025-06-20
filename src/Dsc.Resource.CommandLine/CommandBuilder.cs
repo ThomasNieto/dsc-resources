@@ -46,7 +46,7 @@ public class CommandBuilder<TResource, TSchema> where TResource : IDscResource<T
 
     private static void SchemaHandler(IDscResource<TSchema> resource)
     {
-        Console.WriteLine(resource.GetSchema(typeof(TSchema)));
+        Console.WriteLine(resource.GetSchema());
     }
 
     private static void GetHandler(IDscResource<TSchema> resource, string inputOption)
@@ -62,23 +62,57 @@ public class CommandBuilder<TResource, TSchema> where TResource : IDscResource<T
         Console.WriteLine(resource.ToJson(result));
     }
 
-    private static void SetHandler(ISettable<TSchema> resource, TSchema schema)
+    private static void SetHandler(ISettable<TSchema> resource, string inputOption)
     {
-        throw new NotImplementedException();
+        var instance = resource.Parse(inputOption);
+
+        if (resource is not ISettable<TSchema> iSettable)
+        {
+            throw new NotImplementedException("Resource does not support Set capability.");
+        }
+
+        iSettable.Set(instance);
+
+        // TODO: Capture output and write it out.
+        // Account for null, ActualState, and ActualState/ChangedProperties
     }
 
-    private static void TestHandler(ITestable<TSchema> resource, TSchema schema)
+    private static void TestHandler(ITestable<TSchema> resource, string inputOption)
     {
-        throw new NotImplementedException();
+        var instance = resource.Parse(inputOption);
+
+        if (resource is not ITestable<TSchema> iTestable)
+        {
+            throw new NotImplementedException("Resource does not support Test capability.");
+        }
+
+        iTestable.Test(instance);
+
+        // TODO: Capture output and write it out.
+        // Account for ActualState, and ActualState/DifferingProperties
     }
 
-    private static void DeleteHandler(IDeletable<TSchema> resource, TSchema schema)
+    private static void DeleteHandler(IDeletable<TSchema> resource, string inputOption)
     {
-        throw new NotImplementedException();
+        var instance = resource.Parse(inputOption);
+
+        if (resource is not IDeletable<TSchema> iTDeletable)
+        {
+            throw new NotImplementedException("Resource does not support Delete capability.");
+        }
+
+        iTDeletable.Delete(instance);
     }
 
     private static void ExportHandler(IExportable<TSchema> resource)
     {
-        throw new NotImplementedException();
+        if (resource is not IExportable<TSchema> iExportable)
+        {
+            throw new NotImplementedException("Resource does not support Export capability.");
+        }
+
+        iExportable.Export();
+
+        // TODO: Capture output and write it out.
     }
 }
