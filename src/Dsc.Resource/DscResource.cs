@@ -21,12 +21,14 @@ public abstract class DscResource<T> : IDscResource<T>
                 WriteIndented = false,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+#if NETSTANDARD2_0
                 TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
                 Converters =
                 {
                     new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
                     new TestResultConverter<T>()
                 }
+#endif
             };
 
             return _jsonSerializerOptions;
@@ -61,68 +63,28 @@ public abstract class DscResource<T> : IDscResource<T>
 
     public virtual string GetSchema()
     {
+#if NETSTANDARD2_0
         return JsonSerializerOptions.GetJsonSchemaAsNode(typeof(T), JsonSchemaExporterOptions).ToString();
+#else
+        throw new NotSupportedException("Use source-generated schema generation in .NET 6+ for trimming safety.");
+#endif
     }
 
-#if NET6_0_OR_GREATER
-    [RequiresDynamicCode("Uses JSON serialization that may require runtime code generation.")]
-    [RequiresUnreferencedCode("Uses JSON serialization that may be unsafe for trimming.")]
-#endif
-    public virtual string ToJson(T input)
-    {
-        return JsonSerializer.Serialize(input, JsonSerializerOptions);
-    }
-
-#if NET6_0_OR_GREATER
-    [RequiresDynamicCode("Uses JSON serialization that may require runtime code generation.")]
-    [RequiresUnreferencedCode("Uses JSON serialization that may be unsafe for trimming.")]
-#endif
     public virtual T Parse(string json)
     {
-        return JsonSerializer.Deserialize<T>(json, JsonSerializerOptions) ?? throw new InvalidOperationException();
+#if NETSTANDARD2_0
+        return JsonSerializer.Deserialize<T>(json, JsonSerializerOptions) ?? throw new InvalidDataException();
+#else
+        throw new NotSupportedException("Use source-generated deserialization in .NET 6+ for trimming safety.");
+#endif
     }
 
-    protected void WriteInfo(string message)
+    public virtual string ToJson(T item)
     {
-        var infoMessage = new Info() { Message = message };
-#if NET6_0_OR_GREATER
-        string json = JsonSerializer.Serialize(infoMessage, typeof(Info), SourceGenerationContext.Default);
+#if NETSTANDARD2_0
+        return JsonSerializer.Serialize(item, JsonSerializerOptions);
 #else
-        string json = JsonSerializer.Serialize(infoMessage, typeof(Info), JsonSerializerOptions);
+        throw new NotSupportedException("Use source-generated serialization in .NET 6+ for trimming safety.");
 #endif
-        Console.Error.WriteLine(json);
-    }
-
-    protected void WriteWarning(string message)
-    {
-        var warningMessage = new Warning() { Message = message };
-#if NET6_0_OR_GREATER
-        string json = JsonSerializer.Serialize(warningMessage, typeof(Warning), SourceGenerationContext.Default);
-#else
-        string json = JsonSerializer.Serialize(warningMessage, JsonSerializerOptions);
-#endif
-        Console.Error.WriteLine(json);
-    }
-
-    protected void WriteError(string message)
-    {
-        var errorMessage = new Error() { Message = message };
-#if NET6_0_OR_GREATER
-        string json = JsonSerializer.Serialize(errorMessage, typeof(Error), SourceGenerationContext.Default);
-#else
-        string json = JsonSerializer.Serialize(errorMessage, JsonSerializerOptions);
-#endif
-        Console.Error.WriteLine(json);
-    }
-
-    protected void WriteTrace(string message)
-    {
-        var traceMessage = new Trace() { Message = message };
-#if NET6_0_OR_GREATER
-        string json = JsonSerializer.Serialize(traceMessage, typeof(Trace), SourceGenerationContext.Default);
-#else
-        string json = JsonSerializer.Serialize(traceMessage, JsonSerializerOptions);
-#endif
-        Console.Error.WriteLine(json);
     }
 }
