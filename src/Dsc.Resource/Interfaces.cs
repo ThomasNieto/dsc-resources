@@ -7,33 +7,33 @@ namespace Dsc.Resource;
 public interface IDscResource<T>
 {
     string GetSchema();
-    string ToJson(T item);
+    string ToJson(T instance);
     T Parse(string json);
 }
 
 public interface IGettable<T> : IDscResource<T>
 {
-    T Get(T item);
+    T Get(T instance);
 }
 
 public interface ISettable<T> : IDscResource<T>
 {
-    SetResult<T>? Set(T item);
+    SetResult<T>? Set(T instance);
 }
 
 public interface ISettableWhatIf<T> : ISettable<T>
 {
-    SetResult<T> SetWhatIf(T item);
+    SetResult<T> SetWhatIf(T instance);
 }
 
 public interface IDeletable<T> : IDscResource<T>
 {
-    void Delete(T item);
+    void Delete(T instance);
 }
 
 public interface ITestable<T> : IDscResource<T>
 {
-    TestResult<T> Test(T item);
+    TestResult<T> Test(T instance);
 }
 
 public interface IExportable<T> : IDscResource<T>
