@@ -29,7 +29,7 @@ public sealed class Resource : DscResource<Schema>, IGettable<Schema>, IExportab
     {
         foreach (var service in ServiceController.GetServices())
         {
-            if (service.ServiceName == instance.Name)
+            if (string.Equals(service.ServiceName, instance.Name, StringComparison.OrdinalIgnoreCase))
             {
                 return new Schema()
                 {
