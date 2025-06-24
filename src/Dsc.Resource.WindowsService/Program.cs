@@ -9,4 +9,4 @@ using Dsc.Resource.WindowsService;
 
 var resource = new Resource();
 var command = CommandBuilder<Resource, Schema>.Build(resource, SourceGenerationContext.Default);
-command.Invoke(args);
+return command.Invoke(args);
