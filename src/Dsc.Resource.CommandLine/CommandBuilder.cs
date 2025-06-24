@@ -31,7 +31,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             getCommand.SetHandler((string inputOption) =>
             {
-                GetHandler(resource, inputOption);
+                try
+                {
+                    GetHandler(resource, inputOption);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(getCommand);
@@ -46,7 +53,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             setCommand.SetHandler((string inputOption) =>
             {
-                SetHandler(resource, inputOption);
+                try
+                {
+                    SetHandler(resource, inputOption);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(setCommand);
@@ -61,7 +75,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             testCommand.SetHandler((string inputOption) =>
             {
-                TestHandler(resource, inputOption, options);
+                try
+                {
+                    TestHandler(resource, inputOption, options);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(testCommand);
@@ -76,7 +97,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             deleteCommand.SetHandler((string inputOption) =>
             {
-                DeleteHandler(resource, inputOption);
+                try
+                {
+                    DeleteHandler(resource, inputOption);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(deleteCommand);
@@ -88,7 +116,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             exportCommand.SetHandler(() =>
             {
-                ExportHandler(resource);
+                try
+                {
+                    ExportHandler(resource);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             });
 
             configCommand.AddCommand(exportCommand);
@@ -97,7 +132,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
         var schemaCommand = new Command("schema", "Retrieve resource JSON schema.");
         schemaCommand.SetHandler(() =>
         {
-            SchemaHandler(resource);
+            try
+            {
+                SchemaHandler(resource);
+            }
+            catch (Exception e)
+            {
+                HandleException(resource, e);
+            }
         });
 
         var rootCommand = new RootCommand("Manage resource.");
@@ -126,7 +168,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             getCommand.SetHandler((string inputOption) =>
             {
-                GetHandler(resource, inputOption);
+                try
+                {
+                    GetHandler(resource, inputOption);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(getCommand);
@@ -141,7 +190,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             setCommand.SetHandler((string inputOption) =>
             {
-                SetHandler(resource, inputOption);
+                try
+                {
+                    SetHandler(resource, inputOption);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(setCommand);
@@ -156,7 +212,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             testCommand.SetHandler((string inputOption) =>
             {
-                TestHandler(resource, inputOption, context);
+                try
+                {
+                    TestHandler(resource, inputOption, context);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(testCommand);
@@ -171,7 +234,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             deleteCommand.SetHandler((string inputOption) =>
             {
-                DeleteHandler(resource, inputOption);
+                try
+                {
+                    DeleteHandler(resource, inputOption);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             }, inputOption);
 
             configCommand.AddCommand(deleteCommand);
@@ -183,7 +253,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
             exportCommand.SetHandler(() =>
             {
-                ExportHandler(resource);
+                try
+                {
+                    ExportHandler(resource);
+                }
+                catch (Exception e)
+                {
+                    HandleException(resource, e);
+                }
             });
 
             configCommand.AddCommand(exportCommand);
@@ -192,7 +269,14 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
         var schemaCommand = new Command("schema", "Retrieve resource JSON schema.");
         schemaCommand.SetHandler(() =>
         {
-            SchemaHandler(resource);
+            try
+            {
+                SchemaHandler(resource);
+            }
+            catch (Exception e)
+            {
+                HandleException(resource, e);
+            }
         });
 
         var rootCommand = new RootCommand("Manage resource.");
@@ -316,6 +400,27 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
         {
             var json = resource.ToJson(instance);
             Console.WriteLine(json);
+        }
+    }
+
+    private static void HandleException(TResource resource, Exception e)
+    {
+        Logger.WriteError(e.Message);
+        Logger.WriteTrace($"Exception: {e.GetType().FullName}");
+
+        if (!string.IsNullOrEmpty(e.StackTrace))
+        {
+            Logger.WriteTrace(e.StackTrace);
+        }
+
+        try
+        {
+            var exitCode = ExitCodeResolver.GetExitCode(resource.ExitCodes, e.GetType());
+            Environment.Exit(exitCode);
+        }
+        catch
+        {
+            Environment.Exit(int.MaxValue);
         }
     }
 }

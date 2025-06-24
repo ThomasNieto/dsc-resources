@@ -27,7 +27,9 @@
   "exitCodes": {
     "0": "Success",
     "1": "Invalid parameter",
-    "2": "Invalid input"
+    "2": "Generic Failure",
+    "3": "Invalid JSON",
+    "4": "Failed to get services"
   },
   "schema": {
     "command": {

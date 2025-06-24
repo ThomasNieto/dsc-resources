@@ -2,6 +2,7 @@
 // You may use, distribute and modify this code under the
 // terms of the MIT license.
 
+using System.ComponentModel;
 using System.ServiceProcess;
 using System.Text.Json;
 using System.Text.Json.Schema;
@@ -10,6 +11,13 @@ namespace Dsc.Resource.WindowsService;
 
 public sealed class Resource : DscResource<Schema>, IGettable<Schema>, IExportable<Schema>
 {
+    public Resource() : base("OpenDsc.Windows/Service")
+    {
+        Description = "Manage Windows services.";
+        Tags = ["Windows"];
+        ExitCodes.Add(10, new() { Exception = typeof(Win32Exception), Description = "Failed to get services" });
+    }
+
     public override string GetSchema()
     {
         return SourceGenerationContext.Default.Schema.GetJsonSchemaAsNode(JsonSchemaExporterOptions).ToJsonString();
