@@ -11,3 +11,4 @@ resources without having to manually creating CLIs and resource manifests.
 | --- | --- |
 | Dsc.Resource | Core DSC resource implementation |
 | Dsc.Resource.CommandLine | CLI and resource manifest generator |
+| Dsc.Resource.WindowsService | AoT example resource |
