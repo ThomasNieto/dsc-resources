@@ -5,7 +5,7 @@ The library supports both .NET Standard 2.0 and .NET 8 and .NET 9. Ahead of Time
 (AOT) compilation is supported.
 
 The goals of the library is to facilitate C# devs to quickly create DSC
-resources without having to manually create CLIs and resource manifests.
+resources without having to manually create CLIs, JSON schema, and resource manifests.
 
 | Library | Description |
 | --- | --- |
