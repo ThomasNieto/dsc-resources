@@ -11,12 +11,13 @@ namespace Dsc.Resource.WindowsService;
                              PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
                              UseStringEnumConverter = true,
                              DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                             Converters = [typeof(ResultConverter)])]
+                             Converters = [typeof(ResultConverter), typeof(ResourceConverter)])]
 [JsonSerializable(typeof(Schema))]
 [JsonSerializable(typeof(TestResult<Schema>))]
 [JsonSerializable(typeof(string[]))]
 [JsonSerializable(typeof(ServiceControllerStatus))]
 [JsonSerializable(typeof(ServiceStartMode))]
+[JsonSerializable(typeof(IDscResource<Schema>))]
 internal partial class SourceGenerationContext : JsonSerializerContext
 {
 

@@ -60,6 +60,25 @@ public abstract class DscResource<T> : IDscResource<T>
         }
     }
 
+    public string FileName
+    {
+        get
+        {
+            if (_fileName is null)
+            {
+                _fileName = Process.GetCurrentProcess()?.ProcessName
+                    ?? throw new InvalidOperationException();
+            }
+
+            return _fileName;
+        }
+
+        set
+        {
+            _fileName = value;
+        }
+    }
+
     public IEnumerable<string> Tags { get; set; } = [];
     public IDictionary<int, ResourceExitCode> ExitCodes { get; set; } = new Dictionary<int, ResourceExitCode>();
 
@@ -114,6 +133,7 @@ public abstract class DscResource<T> : IDscResource<T>
     private JsonSchemaExporterOptions? _jsonSchemaExporterOptions;
     private SemanticVersion? _semanticVersion;
     private string _type = string.Empty;
+    private string? _fileName;
 
     protected DscResource(string type)
     {

@@ -142,9 +142,23 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
             }
         });
 
+        var manifestCommand = new Command("manifest", "Retrieve resource manifest.");
+        manifestCommand.SetHandler(() =>
+        {
+            try
+            {
+                ManifestHandler(resource, options);
+            }
+            catch (Exception e)
+            {
+                HandleException(resource, e);
+            }
+        });
+
         var rootCommand = new RootCommand("Manage resource.");
         rootCommand.AddCommand(configCommand);
         rootCommand.AddCommand(schemaCommand);
+        rootCommand.AddCommand(manifestCommand);
 
         return rootCommand;
     }
@@ -279,9 +293,23 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
             }
         });
 
+        var manifestCommand = new Command("manifest", "Retrieve resource manifest.");
+        manifestCommand.SetHandler(() =>
+        {
+            try
+            {
+                ManifestHandler(resource, context);
+            }
+            catch (Exception e)
+            {
+                HandleException(resource, e);
+            }
+        });
+
         var rootCommand = new RootCommand("Manage resource.");
         rootCommand.AddCommand(configCommand);
         rootCommand.AddCommand(schemaCommand);
+        rootCommand.AddCommand(manifestCommand);
 
         return rootCommand;
     }
@@ -291,6 +319,22 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
     {
         Console.WriteLine(resource.GetSchema());
     }
+
+#if NET6_0_OR_GREATER
+    private static void ManifestHandler(IDscResource<TSchema> resource, JsonSerializerContext context)
+    {
+        var json = JsonSerializer.Serialize(resource, typeof(IDscResource<TSchema>), context);
+        Console.WriteLine(json);
+    }
+#endif
+
+#if NETSTANDARD2_0
+    private static void ManifestHandler(IDscResource<TSchema> resource, JsonSerializerOptions options)
+    {
+        var json = JsonSerializer.Serialize(resource, typeof(IDscResource<TSchema>), options);
+        Console.WriteLine(json);
+    }
+#endif
 
     private static void GetHandler(IDscResource<TSchema> resource, string inputOption)
     {

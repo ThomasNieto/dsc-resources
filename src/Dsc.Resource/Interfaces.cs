@@ -14,6 +14,7 @@ public interface IDscResource<T>
     SemanticVersion Version { get; }
     IEnumerable<string> Tags { get; }
     IDictionary<int, ResourceExitCode> ExitCodes { get; }
+    string FileName { get; }
     string GetSchema();
     string ToJson(T instance);
     T Parse(string json);
