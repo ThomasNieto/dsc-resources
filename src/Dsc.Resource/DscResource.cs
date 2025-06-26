@@ -46,7 +46,7 @@ public abstract class DscResource<T> : IDscResource<T>
         {
             if (_semanticVersion is null)
             {
-                var version = Process.GetCurrentProcess()?.MainModule?.FileVersionInfo?.ProductVersion
+                var version = Process.GetCurrentProcess().MainModule?.FileVersionInfo?.ProductVersion
                     ?? throw new InvalidOperationException();
                 _semanticVersion = SemanticVersion.Parse(version);
             }
@@ -66,7 +66,7 @@ public abstract class DscResource<T> : IDscResource<T>
         {
             if (_fileName is null)
             {
-                _fileName = Process.GetCurrentProcess()?.ProcessName
+                _fileName = Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName)
                     ?? throw new InvalidOperationException();
             }
 
