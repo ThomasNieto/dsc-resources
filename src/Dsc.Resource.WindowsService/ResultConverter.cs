@@ -5,7 +5,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Dsc.Resource.WindowsService;
+namespace Dsc.Resource.Windows.Service;
 
 public class ResultConverter : JsonConverter<TestResult<Schema>>
 {

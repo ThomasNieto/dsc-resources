@@ -5,7 +5,7 @@
 using System.ServiceProcess;
 using System.Text.Json.Serialization;
 
-namespace Dsc.Resource.WindowsService;
+namespace Dsc.Resource.Windows.Service;
 
 public sealed class Schema
 {

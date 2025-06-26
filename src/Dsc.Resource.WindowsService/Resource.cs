@@ -7,7 +7,7 @@ using System.ServiceProcess;
 using System.Text.Json;
 using System.Text.Json.Schema;
 
-namespace Dsc.Resource.WindowsService;
+namespace Dsc.Resource.Windows.Service;
 
 public sealed class Resource : DscResource<Schema>, IGettable<Schema>, IExportable<Schema>
 {

@@ -5,7 +5,7 @@
 using System.CommandLine;
 
 using Dsc.Resource.CommandLine;
-using Dsc.Resource.WindowsService;
+using Dsc.Resource.Windows.Service;
 
 var resource = new Resource();
 var command = CommandBuilder<Resource, Schema>.Build(resource, SourceGenerationContext.Default);
