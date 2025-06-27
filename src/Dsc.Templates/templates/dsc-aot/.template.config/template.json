@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Thomas Nieto",
+    "classifications": ["DSC", "Resource", "AOT", "Trimmable"],
+    "identity": "Dsc.Resource.Aot",
+    "name": "DSC Ahead of Time Resource",
+    "shortName": "dsc-aot",
+    "sourceName": "Temp",
+    "preferNameDirectory": true,
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    }
+}
