@@ -5,16 +5,16 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Dsc.Resource.Windows.Service;
+namespace Dsc.Resource;
 
-public class ResourceConverter : JsonConverter<IDscResource<Schema>>
+public class ResourceConverter<T> : JsonConverter<IDscResource<T>>
 {
-    public override IDscResource<Schema>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override IDscResource<T>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotSupportedException("Deserialization is not supported.");
     }
 
-    public override void Write(Utf8JsonWriter writer, IDscResource<Schema> value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, IDscResource<T> value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
         writer.WriteString("$schema", value.ManifestSchema);
@@ -51,7 +51,7 @@ public class ResourceConverter : JsonConverter<IDscResource<Schema>>
         writer.WriteEndObject();
         writer.WriteEndObject();
 
-        if (value is IGettable<Schema>)
+        if (value is IGettable<T>)
         {
             writer.WritePropertyName("get");
             writer.WriteStartObject();
@@ -68,7 +68,7 @@ public class ResourceConverter : JsonConverter<IDscResource<Schema>>
             writer.WriteEndObject();
         }
 
-        if (value is ISettable<Schema>)
+        if (value is ISettable<T>)
         {
             writer.WritePropertyName("set");
             writer.WriteStartObject();
@@ -85,7 +85,7 @@ public class ResourceConverter : JsonConverter<IDscResource<Schema>>
             writer.WriteEndObject();
         }
 
-        if (value is ITestable<Schema>)
+        if (value is ITestable<T>)
         {
             writer.WritePropertyName("test");
             writer.WriteStartObject();
@@ -104,7 +104,7 @@ public class ResourceConverter : JsonConverter<IDscResource<Schema>>
             writer.WriteEndObject();
         }
 
-        if (value is IDeletable<Schema>)
+        if (value is IDeletable<T>)
         {
             writer.WritePropertyName("delete");
             writer.WriteStartObject();
@@ -121,7 +121,7 @@ public class ResourceConverter : JsonConverter<IDscResource<Schema>>
             writer.WriteEndObject();
         }
 
-        if (value is IExportable<Schema>)
+        if (value is IExportable<T>)
         {
             writer.WritePropertyName("export");
             writer.WriteStartObject();

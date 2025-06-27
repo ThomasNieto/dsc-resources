@@ -7,6 +7,7 @@ namespace Dsc.Resource;
 public sealed class ResourceExitCode
 {
     public string Description { get; set; } = string.Empty;
+
     public Type? Exception
     {
         get

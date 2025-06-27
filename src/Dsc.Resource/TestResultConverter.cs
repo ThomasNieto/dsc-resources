@@ -5,9 +5,16 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+#if NET6_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
+#endif
+
 namespace Dsc.Resource;
 
-#if NETSTANDARD2_0
+#if NET6_0_OR_GREATER
+    [RequiresDynamicCodeAttribute("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
+    [RequiresUnreferencedCodeAttribute("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
+#endif
 public class TestResultConverter<T> : JsonConverter<TestResult<T>>
 {
     public override TestResult<T>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -30,4 +37,3 @@ public class TestResultConverter<T> : JsonConverter<TestResult<T>>
         writer.WriteEndObject();
     }
 }
-#endif

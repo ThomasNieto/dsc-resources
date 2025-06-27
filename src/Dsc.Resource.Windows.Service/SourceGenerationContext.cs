@@ -11,7 +11,7 @@ namespace Dsc.Resource.Windows.Service;
                              PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
                              UseStringEnumConverter = true,
                              DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                             Converters = [typeof(ResultConverter), typeof(ResourceConverter)])]
+                             Converters = [typeof(ResourceConverter<Schema>)])]
 [JsonSerializable(typeof(Schema))]
 [JsonSerializable(typeof(TestResult<Schema>))]
 [JsonSerializable(typeof(string[]))]
