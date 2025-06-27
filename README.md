@@ -11,4 +11,4 @@ resources without having to manually create CLIs, JSON schema, and resource mani
 | --- | --- |
 | Dsc.Resource | Core DSC resource implementation |
 | Dsc.Resource.CommandLine | CLI and resource manifest generator |
-| Dsc.Resource.WindowsService | AoT example resource |
+| Dsc.Resource.Windows.Service | AOT example resource |
