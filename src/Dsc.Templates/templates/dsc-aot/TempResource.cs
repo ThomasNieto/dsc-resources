@@ -2,49 +2,21 @@ using System.Text.Json.Serialization;
 
 namespace Temp;
 
-public sealed class TempResource : AotDscResource<TempSchema>, IGettable<TempSchema>, IExportable<TempSchema>
+public sealed class TempResource : AotDscResource<TempSchema>, IGettable<TempSchema>
 {
-    public TempResource(JsonSerializerContext context) : base("OpenDsc.Windows/Service", context)
+    public TempResource(JsonSerializerContext context) : base("Temp", context)
     {
-        Description = "Manage Windows services.";
+        Description = "Manage files.";
         Tags = ["Windows"];
-        ExitCodes.Add(10, new() { Exception = typeof(Win32Exception), Description = "Failed to get services" });
+        ExitCodes.Add(10, new() { Exception = typeof(FileNotFoundException), Description = "File not found" });
     }
 
     public TempSchema Get(TempSchema instance)
     {
-        foreach (var service in ServiceController.GetServices())
-        {
-            if (string.Equals(service.ServiceName, instance.Name, StringComparison.OrdinalIgnoreCase))
-            {
-                return new TempSchema()
-                {
-                    Name = service.ServiceName,
-                    DisplayName = service.DisplayName,
-                    Status = service.Status,
-                    StartType = service.StartType
-                };
-            }
-        }
-
         return new TempSchema()
         {
-            Name = instance.Name,
+            Name = "Test",
             Exist = false
         };
-    }
-
-    public IEnumerable<TempSchema> Export()
-    {
-        foreach (var service in ServiceController.GetServices())
-        {
-            yield return new TempSchema
-            {
-                Name = service.ServiceName,
-                DisplayName = service.DisplayName,
-                Status = service.Status,
-                StartType = service.StartType
-            };
-        }
     }
 }

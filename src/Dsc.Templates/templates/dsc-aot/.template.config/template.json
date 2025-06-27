@@ -1,9 +1,9 @@
 {
     "$schema": "http://json.schemastore.org/template",
     "author": "Thomas Nieto",
-    "classifications": ["DSC", "Resource", "AOT", "Trimmable"],
+    "classifications": ["DSC", "Resource"],
     "identity": "Dsc.Resource.Aot",
-    "name": "DSC Ahead of Time Resource",
+    "name": "DSC Resource (native AOT)",
     "shortName": "dsc-aot",
     "sourceName": "Temp",
     "preferNameDirectory": true,

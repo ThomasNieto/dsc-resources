@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dsc.Resource\Dsc.Resource.csproj" />
-    <ProjectReference Include="..\Dsc.Resource.CommandLine\Dsc.Resource.CommandLine.csproj" />
+    <PackageReference Include="Dsc.Resource" Version="0.1.0" />
+    <PackageReference Include="Dsc.Resource.CommandLine" Version="0.1.0" />
   </ItemGroup>
 
 </Project>
