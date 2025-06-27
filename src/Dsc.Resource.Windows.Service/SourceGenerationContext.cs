@@ -5,6 +5,8 @@
 using System.ServiceProcess;
 using System.Text.Json.Serialization;
 
+using Dsc.Resource.CommandLine;
+
 namespace Dsc.Resource.Windows.Service;
 
 [JsonSourceGenerationOptions(WriteIndented = false,
