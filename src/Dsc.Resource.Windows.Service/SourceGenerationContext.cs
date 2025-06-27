@@ -15,11 +15,10 @@ namespace Dsc.Resource.Windows.Service;
                              DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                              Converters = [typeof(ResourceConverter<Schema>)])]
 [JsonSerializable(typeof(Schema))]
-[JsonSerializable(typeof(TestResult<Schema>))]
-[JsonSerializable(typeof(string[]))]
+[JsonSerializable(typeof(IDscResource<Schema>))]
+[JsonSerializable(typeof(HashSet<string>))]
 [JsonSerializable(typeof(ServiceControllerStatus))]
 [JsonSerializable(typeof(ServiceStartMode))]
-[JsonSerializable(typeof(IDscResource<Schema>))]
 internal partial class SourceGenerationContext : JsonSerializerContext
 {
 

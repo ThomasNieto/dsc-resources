@@ -401,7 +401,7 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
 
         if (result?.ChangedProperties is not null)
         {
-            var json = JsonSerializer.Serialize(result.ChangedProperties, typeof(string[]), context);
+            var json = JsonSerializer.Serialize(result.ChangedProperties, typeof(HashSet<string>), context);
             Console.WriteLine(json);
         }
     }
@@ -420,7 +420,7 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
         }
 
         var result = iTestable.Test(instance);
-        var json = JsonSerializer.Serialize(result, options);
+        var json = JsonSerializer.Serialize(result.ActualState, options);
         Console.WriteLine(json);
 
         if (result?.DifferingProperties is not null)
@@ -440,12 +440,12 @@ public static class CommandBuilder<TResource, TSchema> where TResource : IDscRes
         }
 
         var result = iTestable.Test(instance);
-        var json = JsonSerializer.Serialize(result, typeof(TestResult<TSchema>), context);
+        var json = JsonSerializer.Serialize(result.ActualState, typeof(TSchema), context);
         Console.WriteLine(json);
 
         if (result?.DifferingProperties is not null)
         {
-            json = JsonSerializer.Serialize(result.DifferingProperties, typeof(string[]), context);
+            json = JsonSerializer.Serialize(result.DifferingProperties, typeof(HashSet<string>), context);
             Console.WriteLine(json);
         }
     }
