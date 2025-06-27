@@ -32,8 +32,7 @@ public abstract class DscResource<T> : DscResourceBase<T>
                 TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
                 Converters =
                 {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
-                    new TestResultConverter<T>()
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
                 }
             };
 

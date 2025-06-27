@@ -6,8 +6,6 @@ namespace Dsc.Resource;
 
 public sealed class TestResult<T>
 {
-    public bool InDesiredState { get; set; }
-
     public T ActualState { get; }
 
     public HashSet<string>? DifferingProperties { get; set; }
