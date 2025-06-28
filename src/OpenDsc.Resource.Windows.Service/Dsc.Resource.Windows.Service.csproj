@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dsc.Resource\Dsc.Resource.csproj" />
-    <ProjectReference Include="..\Dsc.Resource.CommandLine\Dsc.Resource.CommandLine.csproj" />
+    <ProjectReference Include="..\OpenDsc.Resource\OpenDsc.Resource.csproj" />
+    <ProjectReference Include="..\OpenDsc.Resource.CommandLine\OpenDsc.Resource.CommandLine.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="*.dsc.resource.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="*.OpenDsc.Resource.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

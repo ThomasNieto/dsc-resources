@@ -11,7 +11,7 @@ using System.Text.Json.Serialization.Metadata;
 using System.Diagnostics.CodeAnalysis;
 #endif
 
-namespace Dsc.Resource;
+namespace OpenDsc.Resource;
 
 #if NET6_0_OR_GREATER
     [RequiresDynamicCodeAttribute("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]

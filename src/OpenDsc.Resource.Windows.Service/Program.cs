@@ -4,8 +4,8 @@
 
 using System.CommandLine;
 
-using Dsc.Resource.CommandLine;
-using Dsc.Resource.Windows.Service;
+using OpenDsc.Resource.CommandLine;
+using OpenDsc.Resource.Windows.Service;
 
 var resource = new Resource(SourceGenerationContext.Default);
 var command = CommandBuilder<Resource, Schema>.Build(resource, SourceGenerationContext.Default);

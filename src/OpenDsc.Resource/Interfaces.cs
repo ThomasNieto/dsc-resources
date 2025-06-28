@@ -4,7 +4,7 @@
 
 using NuGet.Versioning;
 
-namespace Dsc.Resource;
+namespace OpenDsc.Resource;
 
 public interface IDscResource<T>
 {

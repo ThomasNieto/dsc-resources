@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 #endif
 
-namespace Dsc.Resource.CommandLine;
+namespace OpenDsc.Resource.CommandLine;
 
 public static class CommandBuilder<TResource, TSchema> where TResource : IDscResource<TSchema>
 {

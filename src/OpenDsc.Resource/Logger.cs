@@ -4,7 +4,7 @@
 
 using System.Text.Json;
 
-namespace Dsc.Resource;
+namespace OpenDsc.Resource;
 
 public static class Logger
 {

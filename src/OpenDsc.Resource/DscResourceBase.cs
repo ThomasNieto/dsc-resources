@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 using NuGet.Versioning;
 
-namespace Dsc.Resource;
+namespace OpenDsc.Resource;
 
 public abstract class DscResourceBase<T> : IDscResource<T>
 {

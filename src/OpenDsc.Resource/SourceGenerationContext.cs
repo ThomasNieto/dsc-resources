@@ -5,7 +5,7 @@
 #if NET6_0_OR_GREATER
 using System.Text.Json.Serialization;
 
-namespace Dsc.Resource;
+namespace OpenDsc.Resource;
 
 [JsonSourceGenerationOptions(WriteIndented = false,
                              PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,

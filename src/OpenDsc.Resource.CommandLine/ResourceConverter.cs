@@ -5,7 +5,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Dsc.Resource.CommandLine;
+namespace OpenDsc.Resource.CommandLine;
 
 public class ResourceConverter<T> : JsonConverter<IDscResource<T>>
 {

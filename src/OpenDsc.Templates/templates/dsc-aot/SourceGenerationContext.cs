@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-using Dsc.Resource.CommandLine;
+using OpenDsc.Resource.CommandLine;
 
 namespace Temp;
 

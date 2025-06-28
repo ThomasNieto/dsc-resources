@@ -7,7 +7,7 @@ using System.Text.Json.Schema;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
-namespace Dsc.Resource;
+namespace OpenDsc.Resource;
 
 public abstract class AotDscResource<T> : DscResourceBase<T>
 {

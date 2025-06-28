@@ -5,9 +5,9 @@
 using System.ServiceProcess;
 using System.Text.Json.Serialization;
 
-using Dsc.Resource.CommandLine;
+using OpenDsc.Resource.CommandLine;
 
-namespace Dsc.Resource.Windows.Service;
+namespace OpenDsc.Resource.Windows.Service;
 
 [JsonSourceGenerationOptions(WriteIndented = false,
                              PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,

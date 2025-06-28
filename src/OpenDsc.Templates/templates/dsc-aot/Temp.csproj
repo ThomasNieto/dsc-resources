@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dsc.Resource" Version="0.1.0" />
-    <PackageReference Include="Dsc.Resource.CommandLine" Version="0.1.0" />
+    <PackageReference Include="OpenDsc.Resource" Version="0.1.0" />
+    <PackageReference Include="OpenDsc.Resource.CommandLine" Version="0.1.0" />
   </ItemGroup>
 
 </Project>

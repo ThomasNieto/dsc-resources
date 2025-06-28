@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dsc.Resource\Dsc.Resource.csproj" />
+    <ProjectReference Include="..\OpenDsc.Resource\OpenDsc.Resource.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
