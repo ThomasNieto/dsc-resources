@@ -9,7 +9,7 @@ resources without having to manually create CLIs, JSON schema, and resource mani
 
 | Library | Description |
 | --- | --- |
-| Dsc.Templates | DSC project templates |
-| Dsc.Resource | Core DSC resource implementation |
-| Dsc.Resource.CommandLine | CLI and resource manifest generator |
-| Dsc.Resource.Windows.Service | Example native AOT resource |
+| OpenDsc.Templates | DSC project templates |
+| OpenDsc.Resource | Core DSC resource implementation |
+| OpenDsc.Resource.CommandLine | CLI and resource manifest generator |
+| OpenDsc.Resource.Windows.Service | Example native AOT resource |
