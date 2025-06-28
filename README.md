@@ -1,5 +1,8 @@
 # DSC Resources
 
+> [!IMPORTANT]
+> This repository has been moved to [opendsc/opendsc][opendsc]
+
 This repository contains a C# library for generating Microsoft DSC v3 resources.
 The library supports both .NET Standard 2.0 and .NET 8 and .NET 9. Ahead of Time
 (AOT) compilation is supported.
@@ -13,3 +16,5 @@ resources without having to manually create CLIs, JSON schema, and resource mani
 | OpenDsc.Resource | Core DSC resource implementation |
 | OpenDsc.Resource.CommandLine | CLI and resource manifest generator |
 | OpenDsc.Resource.Windows.Service | Example native AOT resource |
+
+[opendsc]: https://github.com/opendsc/opendsc
